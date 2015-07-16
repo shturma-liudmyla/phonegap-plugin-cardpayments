@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.intertad.phonegap.plugins.cardpayments"
+    version="0.0.1">
+    <name>CardPayments</name>
+    <description>Cordova Card Payments Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,square,squareup,card payments</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=3.2.0" />
+    </engines>
+
+    <js-module src="www/cardpayments.js" name="cardPayments">
+        <clobbers target="window.CardPayments" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CardPayments">
+                <param name="ios-package" value="CDVCardPayments" onload="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+	      <array>
+	        <dict>
+	          <key>CFBundleURLSchemes</key>
+	          <array>
+	            <string>auto-shop</string>
+	          </array>
+	        </dict>
+	      </array>
+	    </config-file>
+        
+        <header-file src="src/ios/CDVCardPayments.h" />
+        <source-file src="src/ios/CDVCardPayments.m" />
+        <header-file src="src/ios/Square/NSBundle+SCAdditions.h" />
+        <source-file src="src/ios/Square/NSBundle+SCAdditions.m" />
+        <header-file src="src/ios/Square/NSDictionary+SCAdditions.h" />
+        <source-file src="src/ios/Square/NSDictionary+SCAdditions.m" />
+        <header-file src="src/ios/Square/NSURL+SCAdditions.h" />
+        <source-file src="src/ios/Square/NSURL+SCAdditions.m" />
+        <header-file src="src/ios/Square/SquareCommerceSDK.h" />
+        <header-file src="src/ios/Square/SquareCommerceSDKDefines.h" />
+        <source-file src="src/ios/Square/SquareCommerceSDKDefines.m" />
+        <header-file src="src/ios/Square/SquareCommerceSDKDefines_Internal.h" />
+        <header-file src="src/ios/Square/SCCommerceAPIMoney.h" />
+        <source-file src="src/ios/Square/SCCommerceAPIMoney.m" />
+        <header-file src="src/ios/Square/SCCommerceAPIRequest.h" />
+        <source-file src="src/ios/Square/SCCommerceAPIRequest.m" />
+        <header-file src="src/ios/Square/SCCommerceAPIResponse+Register.h" />
+        <source-file src="src/ios/Square/SCCommerceAPIResponse+Register.m" />
+        <header-file src="src/ios/Square/SCCommerceAPIResponse.h" />
+        <source-file src="src/ios/Square/SCCommerceAPIResponse.m" />
+    </platform>Square/
+
+</plugin>
