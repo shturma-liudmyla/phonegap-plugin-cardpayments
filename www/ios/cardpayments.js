@@ -30,7 +30,23 @@ CardPayments.createPayment = function(data, errorCallback) {
     exec(null, errorCallback, "CardPayments", "createPayment", [data]);
 };
 
+CardPayments.createSquarePayment = function(data, errorCallback) {
+    exec(null, errorCallback, "CardPayments", "createPayment", [data]);
+};
+
+CardPayments.createPaypalPayment = function(data, errorCallback) {
+    errorCallback('Not yet implemented');
+};
+
+CardPayments.handlePaypalCallback = function(url, successCallback, errorCallback) {
+    errorCallback('Not yet implemented');
+};
+
 CardPayments.handleCallback = function(url, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "CardPayments", "handleCallback", [url]);
+};
+
+CardPayments.handleSquareCallback = function(url, successCallback, errorCallback) {
     exec(successCallback, errorCallback, "CardPayments", "handleCallback", [url]);
 };
 

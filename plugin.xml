@@ -4,7 +4,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.intertad.phonegap.plugins.cardpayments"
-    version="0.0.1">
+    version="0.0.2">
     <name>CardPayments</name>
     <description>Cordova Card Payments Plugin</description>
     <license>Apache 2.0</license>
@@ -14,12 +14,12 @@
         <engine name="cordova" version=">=3.2.0" />
     </engines>
 
-    <js-module src="www/cardpayments.js" name="cardPayments">
-        <clobbers target="window.CardPayments" />
-    </js-module>
-
     <!-- ios -->
     <platform name="ios">
+        <js-module src="www/ios/cardpayments.js" name="cardPayments">
+            <clobbers target="window.CardPayments" />
+        </js-module>
+
         <config-file target="config.xml" parent="/*">
             <feature name="CardPayments">
                 <param name="ios-package" value="CDVCardPayments" onload="true" />
@@ -27,15 +27,15 @@
         </config-file>
 
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
-	      <array>
-	        <dict>
-	          <key>CFBundleURLSchemes</key>
-	          <array>
-	            <string>auto-shop</string>
-	          </array>
-	        </dict>
-	      </array>
-	    </config-file>
+          <array>
+            <dict>
+              <key>CFBundleURLSchemes</key>
+              <array>
+                <string>auto-shop</string>
+              </array>
+            </dict>
+          </array>
+        </config-file>
         
         <header-file src="src/ios/CDVCardPayments.h" />
         <source-file src="src/ios/CDVCardPayments.m" />
@@ -57,6 +57,34 @@
         <source-file src="src/ios/Square/SCCommerceAPIResponse+Register.m" />
         <header-file src="src/ios/Square/SCCommerceAPIResponse.h" />
         <source-file src="src/ios/Square/SCCommerceAPIResponse.m" />
-    </platform>Square/
+    </platform>
+
+      <!-- android -->
+      <platform name="android">
+        <js-module src="www/android/cardpayments.js" name="cardPayments">
+            <clobbers target="window.CardPayments" />
+        </js-module>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+          <feature name="PayPalHere">
+            <param name="android-package" value="com.intertad.phonegap.plugins.paypalhere.PayPalHere"/>
+          </feature>
+        </config-file>
+
+        <source-file src="src/android/com/intertad/phonegap/plugins/paypalhere/PayPalHere.java" target-dir="src/com/intertad/phonegap/plugins/paypalhere"/>
+
+        <config-file target="AndroidManifest.xml" parent="/*/application/activity">
+          <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data
+                android:host="paypalResult"
+                android:scheme="auto-shop" />
+          </intent-filter>
+        </config-file>
+      </platform>
 
 </plugin>
