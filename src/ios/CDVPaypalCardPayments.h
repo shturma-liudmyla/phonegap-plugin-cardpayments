@@ -19,7 +19,7 @@
 
 #import <Cordova/CDVPlugin.h>
 
-@interface CDVCardPayments : CDVPlugin
+@interface CDVPaypalCardPayments : CDVPlugin
 
 - (void) createPayment:(CDVInvokedUrlCommand*)command;
 

@@ -4,7 +4,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.intertad.phonegap.plugins.cardpayments"
-    version="0.0.2">
+    version="0.0.3">
     <name>CardPayments</name>
     <description>Cordova Card Payments Plugin</description>
     <license>Apache 2.0</license>
@@ -21,8 +21,11 @@
         </js-module>
 
         <config-file target="config.xml" parent="/*">
-            <feature name="CardPayments">
-                <param name="ios-package" value="CDVCardPayments" onload="true" />
+            <feature name="SquareCardPayments">
+                <param name="ios-package" value="CDVSquareCardPayments" onload="true" />
+            </feature>
+            <feature name="PaypalCardPayments">
+                <param name="ios-package" value="CDVPaypalCardPayments" onload="true" />
             </feature>
         </config-file>
 
@@ -37,26 +40,16 @@
           </array>
         </config-file>
         
-        <header-file src="src/ios/CDVCardPayments.h" />
-        <source-file src="src/ios/CDVCardPayments.m" />
-        <header-file src="src/ios/Square/NSBundle+SCAdditions.h" />
-        <source-file src="src/ios/Square/NSBundle+SCAdditions.m" />
-        <header-file src="src/ios/Square/NSDictionary+SCAdditions.h" />
-        <source-file src="src/ios/Square/NSDictionary+SCAdditions.m" />
-        <header-file src="src/ios/Square/NSURL+SCAdditions.h" />
-        <source-file src="src/ios/Square/NSURL+SCAdditions.m" />
-        <header-file src="src/ios/Square/SquareCommerceSDK.h" />
-        <header-file src="src/ios/Square/SquareCommerceSDKDefines.h" />
-        <source-file src="src/ios/Square/SquareCommerceSDKDefines.m" />
-        <header-file src="src/ios/Square/SquareCommerceSDKDefines_Internal.h" />
-        <header-file src="src/ios/Square/SCCommerceAPIMoney.h" />
-        <source-file src="src/ios/Square/SCCommerceAPIMoney.m" />
-        <header-file src="src/ios/Square/SCCommerceAPIRequest.h" />
-        <source-file src="src/ios/Square/SCCommerceAPIRequest.m" />
-        <header-file src="src/ios/Square/SCCommerceAPIResponse+Register.h" />
-        <source-file src="src/ios/Square/SCCommerceAPIResponse+Register.m" />
-        <header-file src="src/ios/Square/SCCommerceAPIResponse.h" />
-        <source-file src="src/ios/Square/SCCommerceAPIResponse.m" />
+        <header-file src="src/ios/JSONKit.h" />
+        <source-file src="src/ios/JSONKit.m" compiler-flags="-fno-objc-arc" />
+        <header-file src="src/ios/NSDictionary+SCAdditions.h" />
+        <source-file src="src/ios/NSDictionary+SCAdditions.m" />
+        <header-file src="src/ios/NSURL+SCAdditions.h" />
+        <source-file src="src/ios/NSURL+SCAdditions.m" />
+        <header-file src="src/ios/CDVSquareCardPayments.h" />
+        <source-file src="src/ios/CDVSquareCardPayments.m" />
+        <header-file src="src/ios/CDVPaypalCardPayments.h" />
+        <source-file src="src/ios/CDVPaypalCardPayments.m" />
     </platform>
 
       <!-- android -->

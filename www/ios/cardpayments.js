@@ -26,28 +26,31 @@ var argscheck = require('cordova/argscheck'),
 var CardPayments = function() {
 };
 
-CardPayments.createPayment = function(data, errorCallback) {
-    exec(null, errorCallback, "CardPayments", "createPayment", [data]);
+CardPayments.createPayment = function(input, errorCallback) {
+	if (input.type !== null && input.type !== undefined &&
+		input.data !== null && input.data !== undefined ) {
+		var type = input.type;
+		var data = input.data;
+
+		if (type === 'PAYPAL') {
+			exec(null, errorCallback, "PaypalCardPayments", "createPayment", [{
+	        	"invoice": data
+	    	}]);
+		} else if (type === 'SQUARE') {
+			exec(null, errorCallback, "SquareCardPayments", "createPayment", [data]);
+		}
+	}
 };
 
-CardPayments.createSquarePayment = function(data, errorCallback) {
-    exec(null, errorCallback, "CardPayments", "createPayment", [data]);
-};
-
-CardPayments.createPaypalPayment = function(data, errorCallback) {
-    errorCallback('Not yet implemented');
-};
-
-CardPayments.handlePaypalCallback = function(url, successCallback, errorCallback) {
-    errorCallback('Not yet implemented');
-};
-
-CardPayments.handleCallback = function(url, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "CardPayments", "handleCallback", [url]);
-};
-
-CardPayments.handleSquareCallback = function(url, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "CardPayments", "handleCallback", [url]);
+CardPayments.handleCallback = function(type, url, successCallback, errorCallback) {
+	if (type !== null && type !== undefined &&
+		url !== null && url !== undefined ) {
+		if (type === 'PAYPAL') {
+			exec(successCallback, errorCallback, "PaypalCardPayments", "handleCallback", [url]);
+		} else if (type === 'SQUARE') {
+			exec(successCallback, errorCallback, "SquareCardPayments", "handleCallback", [url]);
+		}
+	}
 };
 
 module.exports = CardPayments;

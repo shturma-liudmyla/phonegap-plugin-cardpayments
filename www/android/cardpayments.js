@@ -42,30 +42,31 @@ var CardPayments = function() {
     document.addEventListener("resume", triggerOpenURL, false);
 }());
 
-CardPayments.createPaypalPayment = function(data, errorCallback) {
-    exec(null, errorCallback, "PayPalHere", "createPayment", [{
-        "invoice": data
-    }]);
+CardPayments.createPayment = function(input, errorCallback) {
+  if (input.type !== null && input.type !== undefined &&
+    input.data !== null && input.data !== undefined ) {
+    var type = input.type;
+    var data = input.data;
+
+    if (type === 'PAYPAL') {
+      exec(null, errorCallback, "PayPalHere", "createPayment", [{
+            "invoice": data
+        }]);
+    } else {
+      errorCallback('Not yet implemented');
+    }
+  }
 };
 
-CardPayments.handlePaypalCallback = function(url, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "PayPalHere", "handleCallback", [url]);
-};
-
-CardPayments.createSquarePayment = function(data, errorCallback) {
-    this.createPayment(data, errorCallback);
-};
-
-CardPayments.createPayment = function(data, errorCallback) {
-    errorCallback('Not yet implemented');
-};
-
-CardPayments.handleSquareCallback = function(url, successCallback, errorCallback) {
-    this.handleCallback(url, successCallback, errorCallback);
-};
-
-CardPayments.handleCallback = function(url, successCallback, errorCallback) {
-    errorCallback('Not yet implemented');
+CardPayments.handleCallback = function(type, url, successCallback, errorCallback) {
+  if (type !== null && type !== undefined &&
+    url !== null && url !== undefined ) {
+    if (type === 'PAYPAL') {
+      exec(successCallback, errorCallback, "PayPalHere", "handleCallback", [url]);
+    } else {
+      errorCallback('Not yet implemented');
+    }
+  }
 };
 
 module.exports = CardPayments;
