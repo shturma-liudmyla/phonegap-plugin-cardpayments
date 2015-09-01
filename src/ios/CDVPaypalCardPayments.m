@@ -30,7 +30,7 @@
 
 // urls
 NSString *const CDVPaypalPaymentUrl = @"paypalhere://takePayment";
-NSString *const CDVPaypalPaymentCallbackUrl = @"auto-shop://paypal-complete/{result}?Type={Type}&InvoiceId={InvoiceId}&Tip={Tip}&TxId={TxId}";
+NSString *const CDVPaypalPaymentCallbackUrl = @"auto-shop://paypal-complete?Type={Type}&InvoiceId={InvoiceId}&Tip={Tip}&Email={Email}&TxId={TxId}";
 
 // request fields
 NSString *const CDVPaypalPaymentRequestInvoiceKey = @"invoice";
@@ -56,7 +56,7 @@ NSString *const CDVPaypalPaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     
     NSDictionary* params = [command.arguments objectAtIndex:0];
 
-    NSDictionary *invoice      = [params objectForKey: CDVPaypalPaymentRequestInvoiceKey];
+    NSDictionary *invoice = [params objectForKey: CDVPaypalPaymentRequestInvoiceKey];
 
     [self doPaypalPaymentWithInvoice: invoice
                                error: &error];
@@ -75,14 +75,17 @@ NSString *const CDVPaypalPaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
                 error: (NSError *__autoreleasing *) error {
 
     NSString *jsonInvoice = [invoice JSONString];
-    NSString *encodedInvoice = [jsonInvoice stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     
-    NSString *encodedPaymentTypes = [@"cash,card,paypal" stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString *encodedInvoice = [jsonInvoice SC_URLEncode];
     
-    NSString *encodedReturnUrl = [CDVPaypalPaymentCallbackUrl stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString *encodedPaymentTypes = [@"cash,card,paypal" SC_URLEncode];
     
-    NSString *pphUrlString = [NSString stringWithFormat:@"%@?accepted=%@&returnUrl=%@&invoice=%@&step=choosePayment",
-                              CDVPaypalPaymentUrl, encodedPaymentTypes, encodedReturnUrl, encodedInvoice];
+    NSString *returnUrl = [NSString stringWithString:CDVPaypalPaymentCallbackUrl];
+    
+    NSString *encodedReturnUrl = [returnUrl SC_URLEncode];
+    
+    NSString *pphUrlString = [NSString stringWithFormat:@"%@?returnUrl=%@&accepted=%@&step=choosePayment&invoice=%@",
+                              CDVPaypalPaymentUrl, encodedReturnUrl, encodedPaymentTypes, encodedInvoice];
     
     NSURL *pphUrl = [NSURL URLWithString:pphUrlString];
         

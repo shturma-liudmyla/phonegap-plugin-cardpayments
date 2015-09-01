@@ -110,7 +110,7 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     [parameters setObject:options forKey:@"options"];
     
     NSString *jsonParameters = [parameters JSONString];
-    NSString *encodedParameters = [jsonParameters stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString *encodedParameters = [jsonParameters SC_URLEncode];
     
     NSString *squareUrlString = [NSString stringWithFormat:@"%@?data=%@",
                                  CDVSquarePaymentUrl, encodedParameters];

@@ -14,3 +14,9 @@
 - (NSDictionary *)SC_parameters;
 
 @end
+
+@interface NSString (SCAdditions)
+
+- (NSString *) SC_URLEncode;
+
+@end
