@@ -26,6 +26,16 @@ var argscheck = require('cordova/argscheck'),
 var CardPayments = function() {
 };
 
+CardPayments.checkInstalled = function(type, successCallback, errorCallback) {
+  if (type !== null && type !== undefined) {
+    if (type === 'PAYPAL') {
+      exec(successCallback, errorCallback, "PaypalCardPayments", "checkInstalled", []);
+    } else if (type === 'SQUARE') {
+	  exec(successCallback, errorCallback, "SquareCardPayments", "checkInstalled", []);
+	}
+  }
+};
+
 CardPayments.createPayment = function(input, errorCallback) {
 	if (input.type !== null && input.type !== undefined &&
 		input.data !== null && input.data !== undefined ) {

@@ -42,12 +42,31 @@ NSString *const CDVPaypalPaymentResponseOfflinePaymentIdKey = @"offlinePaymentId
 NSString *const CDVPaypalPaymentResponseStatusKey = @"status";
 NSString *const CDVPaypalPaymentResponseUserInfoStringKey = @"userInfo";
 
+NSString *const CDVPaypalCheckInstallResponseInstalledKey = @"installed";
+
 // error fields
 NSString *const CDVPaypalPaymentErrorCodeKey = @"code";
 NSString *const CDVPaypalPaymentErrorDomainKey = @"domain";
 NSString *const CDVPaypalPaymentErrorDomain = @"com.intertad.phonegap.plugins.cardpayments.paypal";
 
 @implementation CDVPaypalCardPayments
+
+ - (void)checkInstalled:(CDVInvokedUrlCommand*)command
+{
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    NSURL *pphUrl = [NSURL URLWithString:CDVPaypalPaymentUrl];
+    
+    bool installed = [application canOpenURL:pphUrl];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:@(installed)
+         forKey:CDVPaypalCheckInstallResponseInstalledKey];
+
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                 messageAsDictionary:dict];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
  - (void)createPayment:(CDVInvokedUrlCommand*)command
 {

@@ -23,6 +23,41 @@ Permissions
 Square
 ======
 
+## CardPayments.checkInstalled
+
+Check if specified payment type is installed on the phone
+
+    CardPayments.checkInstalled(type, successCallback, errorCallback);
+
+### Description
+
+Check if application required to handle ```type``` is installed on the device.
+
+### Supported Platforms
+
+- iOS
+- Android
+
+### Quick Example
+
+    CardPayments.checkInstalled('SQUARE', function(res) {
+        // handle result
+      }, function(err) {
+        // handle error
+      });
+
+### Sample response
+
+    {
+      installed: false
+    }
+
+or
+
+    {
+      installed: true
+    }
+
 ## CardPayments.createSquarePayment
 
 Start processing of card payment by Square APP
@@ -38,6 +73,7 @@ Error callback is provided for immediate error returned by payment engine (no pa
 ### Supported Platforms
 
 - iOS
+- Android
 
 ### Quick Example
 
@@ -86,6 +122,7 @@ Error example:
 ### Supported Platforms
 
 - iOS
+- Android
 
 Paypal
 ======
@@ -153,6 +190,22 @@ Sample Service
 -------------------
 
     app.service('CardPayments', function($q, $window) {
+      var checkInstalled = function(type) {
+        var deferred = $q.defer();
+
+        $window.CardPayments.checkInstalled(type,
+          function(res) {
+              deferred.resolve(res);
+          },
+          function(error) {
+              if (error) {
+                  deferred.reject(error);
+              }
+          });
+
+        return deferred.promise;
+      };
+
       var createPayment = function(input) {
 
         var deferred = $q.defer();
@@ -178,7 +231,8 @@ Sample Service
       };
 
       return {
-        createPayment: createPayment
+        createPayment: createPayment,
+        checkInstalled: checkInstalled
       };
     })
 
@@ -250,4 +304,20 @@ Usage
       }, function(err){
         showPopup('Error', JSON.stringify(err));
       });
+   };
+
+   $scope.checkSquare = function() {
+      CardPayments.checkInstalled('SQUARE').then(function(res){
+         showPopup('Success', JSON.stringify(res));
+       }, function(err){
+         showPopup('Error', JSON.stringify(err));
+       });
+   };
+
+   $scope.checkPaypal = function() {
+      CardPayments.checkInstalled('PAYPAL').then(function(res){
+         showPopup('Success', JSON.stringify(res));
+       }, function(err){
+         showPopup('Error', JSON.stringify(err));
+       });
    };

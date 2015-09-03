@@ -1,6 +1,8 @@
 package com.intertad.phonegap.plugins.paypalhere;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
@@ -15,6 +17,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 public class PayPalHere extends CordovaPlugin {
 
@@ -24,6 +27,8 @@ public class PayPalHere extends CordovaPlugin {
 
     private static final String URL_RETURN_URL = "auto-shop://{{host}}/?{result}?Type={Type}&InvoiceId={InvoiceId}&Tip={Tip}&Email={Email}&TxId={TxId}";
 
+    private static final String ACTION_CHECK_INSTALLED = "checkInstalled";
+
     private static final String ACTION_CREATE_PAYMENT = "createPayment";
 
     private static final String ACTION_HANDLE_CALLBACK = "handleCallback";
@@ -32,12 +37,23 @@ public class PayPalHere extends CordovaPlugin {
 
     private static final String PROPERTY_INVOICE = "invoice";
 
+    private static final String PROPERTY_INSTALLED = "installed";
+
+    private static final String PROPERTY_PACKAGE_NAME = "package";
+
     private static final String TAG = "phonegap-paypal";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
-        if (ACTION_CREATE_PAYMENT.equalsIgnoreCase(action)) {
+        if (ACTION_CHECK_INSTALLED.equalsIgnoreCase(action)) {
+
+            JSONObject result = checkInstalled();
+
+            callbackContext.success(result);
+
+            return true;
+        } else if (ACTION_CREATE_PAYMENT.equalsIgnoreCase(action)) {
 
             final JSONObject obj = args.optJSONObject(0);
 
@@ -83,6 +99,20 @@ public class PayPalHere extends CordovaPlugin {
             callbackContext.error("This plugin only responds to the " + ACTION_CREATE_PAYMENT + " action.");
             return false;
         }
+    }
+
+    private JSONObject checkInstalled() throws JSONException {
+        PackageManager packageManager = this.cordova.getActivity().getPackageManager();
+        JSONObject result = new JSONObject();
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(URL_PAYPAL_PAYMENT));
+
+        List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(i, 0);
+
+        result.put(PROPERTY_INSTALLED, !resolveInfoList.isEmpty());
+
+        return result;
     }
 
     private void doPayment(JSONObject invoice) {

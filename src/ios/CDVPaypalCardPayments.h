@@ -21,6 +21,8 @@
 
 @interface CDVPaypalCardPayments : CDVPlugin
 
+- (void) checkInstalled:(CDVInvokedUrlCommand*)command;
+
 - (void) createPayment:(CDVInvokedUrlCommand*)command;
 
 - (void) handleCallback:(CDVInvokedUrlCommand*)command;

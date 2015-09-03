@@ -42,6 +42,18 @@ var CardPayments = function() {
     document.addEventListener("resume", triggerOpenURL, false);
 }());
 
+CardPayments.checkInstalled = function(type, successCallback, errorCallback) {
+  if (type !== null && type !== undefined) {
+    if (type === 'PAYPAL') {
+      exec(successCallback, errorCallback, "PayPalHere", "checkInstalled", []);
+    } else {
+      successCallback({
+        installed: false
+      });
+    }
+  }
+};
+
 CardPayments.createPayment = function(input, errorCallback) {
   if (input.type !== null && input.type !== undefined &&
     input.data !== null && input.data !== undefined ) {
