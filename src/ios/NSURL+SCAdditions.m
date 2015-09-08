@@ -58,4 +58,13 @@
     return output;
 }
 
+
+-(NSString *) SC_URLEncodeUsingEncoding: (NSStringEncoding)encoding {
+    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                               (CFStringRef)self,
+                                                               NULL,
+                                                               (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+                                                               CFStringConvertNSStringEncodingToEncoding(encoding)));
+}
+
 @end

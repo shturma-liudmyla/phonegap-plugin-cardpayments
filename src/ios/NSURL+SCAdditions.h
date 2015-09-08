@@ -19,4 +19,6 @@
 
 - (NSString *) SC_URLEncode;
 
+- (NSString *) SC_URLEncodeUsingEncoding: (NSStringEncoding)encoding;
+
 @end
