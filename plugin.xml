@@ -4,7 +4,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.intertad.phonegap.plugins.cardpayments"
-    version="0.0.6">
+    version="0.0.7">
     <name>CardPayments</name>
     <description>Cordova Card Payments Plugin</description>
     <license>Apache 2.0</license>
@@ -35,6 +35,11 @@
               <key>CFBundleURLSchemes</key>
               <array>
                 <string>auto-shop</string>
+              </array>
+              <key>LSApplicationQueriesSchemes</key>
+              <array>
+                <string>paypalhere</string>
+                <string>square-commerce-v1</string>
               </array>
             </dict>
           </array>
