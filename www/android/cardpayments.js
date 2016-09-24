@@ -46,6 +46,8 @@ CardPayments.checkInstalled = function(type, successCallback, errorCallback) {
   if (type !== null && type !== undefined) {
     if (type === 'PAYPAL') {
       exec(successCallback, errorCallback, "PayPalHere", "checkInstalled", []);
+    } else if (type === 'SQUARE') {
+      exec(successCallback, errorCallback, "Square", "checkInstalled", []);
     } else {
       successCallback({
         installed: false
@@ -54,16 +56,18 @@ CardPayments.checkInstalled = function(type, successCallback, errorCallback) {
   }
 };
 
-CardPayments.createPayment = function(input, errorCallback) {
+CardPayments.createPayment = function(input, successCallback, errorCallback) {
   if (input.type !== null && input.type !== undefined &&
     input.data !== null && input.data !== undefined ) {
     var type = input.type;
     var data = input.data;
 
     if (type === 'PAYPAL') {
-      exec(null, errorCallback, "PayPalHere", "createPayment", [{
+      exec(successCallback, errorCallback, "PayPalHere", "createPayment", [{
             "invoice": data
         }]);
+    } else if (type === 'SQUARE') {
+       exec(successCallback, errorCallback, "Square", "createPayment", [data]);
     } else {
       errorCallback('Not yet implemented');
     }
@@ -75,6 +79,8 @@ CardPayments.handleCallback = function(type, url, successCallback, errorCallback
     url !== null && url !== undefined ) {
     if (type === 'PAYPAL') {
       exec(successCallback, errorCallback, "PayPalHere", "handleCallback", [url]);
+    } else if (type === 'SQUARE') {
+      exec(successCallback, errorCallback, "Square", "handleCallback", [url]);
     } else {
       errorCallback('Not yet implemented');
     }
