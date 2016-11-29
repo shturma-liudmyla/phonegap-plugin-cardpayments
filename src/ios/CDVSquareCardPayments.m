@@ -35,7 +35,7 @@ NSString *const CDVSquareCallbackUrl = @"auto-shop://square-complete";
 // request fields
 NSString *const CDVSquarePaymentRequestUrlDataKey = @"data";
 NSString *const CDVSquarePaymentRequestClientIDKey = @"clientId";
-NSString *const CDVSquarePaymentRequestMerchantIDKey = @"merchantId";
+//NSString *const CDVSquarePaymentRequestMerchantIDKey = @"merchantId";
 NSString *const CDVSquarePaymentRequestUserInfoStringKey = @"userInfo";
 NSString *const CDVSquarePaymentRequestAmountKey = @"amount";
 NSString *const CDVSquarePaymentRequestCurrencyKey = @"currency";
@@ -86,7 +86,7 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     NSString *currency      = [params objectForKey: CDVSquarePaymentRequestCurrencyKey];
     
     [self doSquarePaymentForClientId: clientId
-                          merchantId: merchantId
+                         // merchantId: merchantId
                             userInfo: userInfo
                             currency: currency
                               amount: amount
@@ -105,7 +105,7 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
 }
 
 - (void)doSquarePaymentForClientId: (NSString *) clientId
-                        merchantId: (NSString *) merchantId
+                        //merchantId: (NSString *) merchantId
                           userInfo: (NSString *) userInfo
                           currency: (NSString *) currency
                             amount: (NSNumber *) amount
@@ -121,10 +121,10 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     [parameters setObject:amountMoney forKey:@"amount_money"];
     [parameters setObject:CDVSquareCallbackUrl forKey:@"callback_url"];
     [parameters setObject:clientId forKey:@"client_id"];
-    [parameters setObject:merchantId forKey:@"merchant_id"];
+    //[parameters setObject:merchantId forKey:@"merchant_id"];
     [parameters setObject:userInfo forKey:@"notes"];
     
-    NSMutableArray *tender_types = [NSMutableArray arrayWithObject:@"CREDIT_CARD"];
+    NSMutableArray *tender_types = [NSMutableArray arrayWithObject:@"CREDIT_CARD", @"CASH", @"OTHER", @"SQUARE_GIFT_CARD", @"CARD_ON_FILE"];
     [options setObject:tender_types forKey:@"supported_tender_types"];
     [parameters setObject:options forKey:@"options"];
     
