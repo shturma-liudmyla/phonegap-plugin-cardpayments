@@ -126,7 +126,7 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     NSMutableArray *tender_types = [NSMutableArray arrayWithObjects:@"CREDIT_CARD", @"CASH", @"OTHER", nil];
     //NSMutableArray *tender_types = [NSMutableArray arrayWithObject:@"CREDIT_CARD"];
     
-    [options setObject:tender_types forKey:@"supported_tender_types"];
+    [options setValue:tender_types forKey:@"supported_tender_types"];
     [parameters setObject:options forKey:@"options"];
     
     NSString *jsonParameters = [parameters JSONString];
