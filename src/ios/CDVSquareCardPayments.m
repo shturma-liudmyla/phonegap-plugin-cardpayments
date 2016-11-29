@@ -35,10 +35,10 @@ NSString *const CDVSquareCallbackUrl = @"auto-shop://square-complete";
 // request fields
 NSString *const CDVSquarePaymentRequestUrlDataKey = @"data";
 NSString *const CDVSquarePaymentRequestClientIDKey = @"clientId";
-//NSString *const CDVSquarePaymentRequestMerchantIDKey = @"merchantId";
 NSString *const CDVSquarePaymentRequestUserInfoStringKey = @"userInfo";
 NSString *const CDVSquarePaymentRequestAmountKey = @"amount";
 NSString *const CDVSquarePaymentRequestCurrencyKey = @"currency";
+//NSString *const CDVSquarePaymentRequestMerchantIDKey = @"merchantId";
 
 // response fields
 NSString *const CDVSquarePaymentResponsePaymentIdKey = @"paymentId";
@@ -80,17 +80,17 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     NSDictionary* params = [command.arguments objectAtIndex:0];
     
     NSString *clientId      = [params objectForKey: CDVSquarePaymentRequestClientIDKey];
-    //NSString *merchantId    = [params objectForKey: CDVSquarePaymentRequestMerchantIDKey];
     NSString *userInfo      = [params objectForKey: CDVSquarePaymentRequestUserInfoStringKey];
     NSNumber *amount        = [params objectForKey: CDVSquarePaymentRequestAmountKey];
     NSString *currency      = [params objectForKey: CDVSquarePaymentRequestCurrencyKey];
+  //NSString *merchantId    = [params objectForKey: CDVSquarePaymentRequestMerchantIDKey];
     
     [self doSquarePaymentForClientId: clientId
-                         // merchantId: merchantId
                             userInfo: userInfo
                             currency: currency
                               amount: amount
                                error: &error];
+ // merchantId: merchantId
     
     //:(NSError *__autoreleasing *)error;
     
@@ -103,9 +103,8 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-
+ //merchantId: (NSString *) merchantId
 - (void)doSquarePaymentForClientId: (NSString *) clientId
-                        //merchantId: (NSString *) merchantId
                           userInfo: (NSString *) userInfo
                           currency: (NSString *) currency
                             amount: (NSNumber *) amount
@@ -121,8 +120,8 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     [parameters setObject:amountMoney forKey:@"amount_money"];
     [parameters setObject:CDVSquareCallbackUrl forKey:@"callback_url"];
     [parameters setObject:clientId forKey:@"client_id"];
-    //[parameters setObject:merchantId forKey:@"merchant_id"];
     [parameters setObject:userInfo forKey:@"notes"];
+    //[parameters setObject:merchantId forKey:@"merchant_id"];
     
     //NSMutableArray *tender_types = [NSMutableArray arrayWithObjects:@"CREDIT_CARD", @"CASH", @"OTHER", @"SQUARE_GIFT_CARD", @"CARD_ON_FILE", nil];
     NSMutableArray *tender_types = [NSMutableArray arrayWithObject:@"CREDIT_CARD"];
