@@ -80,7 +80,7 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     NSDictionary* params = [command.arguments objectAtIndex:0];
     
     NSString *clientId      = [params objectForKey: CDVSquarePaymentRequestClientIDKey];
-    NSString *merchantId    = [params objectForKey: CDVSquarePaymentRequestMerchantIDKey];
+    //NSString *merchantId    = [params objectForKey: CDVSquarePaymentRequestMerchantIDKey];
     NSString *userInfo      = [params objectForKey: CDVSquarePaymentRequestUserInfoStringKey];
     NSNumber *amount        = [params objectForKey: CDVSquarePaymentRequestAmountKey];
     NSString *currency      = [params objectForKey: CDVSquarePaymentRequestCurrencyKey];
