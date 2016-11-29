@@ -3,8 +3,8 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.intertad.phonegap.plugins.cardpayments"
-    version="0.0.9">
+    id="com.intertad.phonegap.plugins.cardpayments.dev"
+    version="0.0.12">
     <name>CardPayments</name>
     <description>Cordova Card Payments Plugin</description>
     <license>Apache 2.0</license>
@@ -67,13 +67,19 @@
             <clobbers target="window.CardPayments" />
         </js-module>
 
+        <framework src="com.squareup.sdk:register-sdk:1.0" />
+
         <config-file target="res/xml/config.xml" parent="/*">
           <feature name="PayPalHere">
             <param name="android-package" value="com.intertad.phonegap.plugins.paypalhere.PayPalHere"/>
           </feature>
+          <feature name="Square">
+            <param name="android-package" value="com.intertad.phonegap.plugins.square.Square"/>
+          </feature>
         </config-file>
 
         <source-file src="src/android/com/intertad/phonegap/plugins/paypalhere/PayPalHere.java" target-dir="src/com/intertad/phonegap/plugins/paypalhere"/>
+        <source-file src="src/android/com/intertad/phonegap/plugins/square/Square.java" target-dir="src/com/intertad/phonegap/plugins/square"/>
 
         <config-file target="AndroidManifest.xml" parent="/*/application/activity">
           <intent-filter>
