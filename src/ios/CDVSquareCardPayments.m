@@ -84,14 +84,12 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     NSString *userInfo      = [params objectForKey: CDVSquarePaymentRequestUserInfoStringKey];
     NSNumber *amount        = [params objectForKey: CDVSquarePaymentRequestAmountKey];
     NSString *currency      = [params objectForKey: CDVSquarePaymentRequestCurrencyKey];
-   // NSString *version      = [params objectForKey: CDVSquarePaymentRequestVersionKey];
   //NSString *merchantId    = [params objectForKey: CDVSquarePaymentRequestMerchantIDKey];
     
     [self doSquarePaymentForClientId: clientId
                             userInfo: userInfo
                             currency: currency
                               amount: amount
- //                            version:version
                                error: &error];
  // merchantId: merchantId
     
@@ -111,7 +109,6 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
                           userInfo: (NSString *) userInfo
                           currency: (NSString *) currency
                             amount: (NSNumber *) amount
-    //                       version: (NSString *) version
                              error: (NSError *__autoreleasing *) error {
     
     NSMutableDictionary *amountMoney = [NSMutableDictionary dictionary];
@@ -125,7 +122,6 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     [parameters setObject:CDVSquareCallbackUrl forKey:@"callback_url"];
     [parameters setObject:clientId forKey:@"client_id"];
     [parameters setObject:userInfo forKey:@"notes"];
-   // [parameters setObject:version forKey:@"version"];
     //[parameters setObject:merchantId forKey:@"merchant_id"];
     
     NSString *version = @"1.2"; 
@@ -133,7 +129,7 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
                               
     //NSMutableArray *tender_types = [NSMutableArray arrayWithObjects:@"CREDIT_CARD", @"CASH", nil];
     //NSMutableArray *tender_types = [NSMutableArray arrayWithObject:@"CREDIT_CARD"];
-    NSArray tender_types = @[@"CREDIT_CARD", @"CASH"];
+    NSArray *tender_types = @[@"CREDIT_CARD", @"CASH"];
   
     //NSArray *tender_types = @[@"CREDIT_CARD"];
     
