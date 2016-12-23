@@ -20,7 +20,6 @@
 #import "CDVPaypalCardPayments.h"
 #import "NSDictionary+SCAdditions.h"
 #import "NSURL+SCAdditions.h"
-#import "JSONKit.h"
 
 #import <Cordova/CDVAvailability.h>
 
@@ -93,7 +92,12 @@ NSString *const CDVPaypalPaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
 - (void)doPaypalPaymentWithInvoice: (NSDictionary *) invoice
                 error: (NSError *__autoreleasing *) error {
 
-    NSString *jsonInvoice = [invoice JSONString];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:invoice
+                                                       options:kNilOptions
+                                                         error:nil];
+    
+    NSString *jsonInvoice = [[NSString alloc] initWithData:jsonData
+                                                  encoding:NSUTF8StringEncoding];
     
     NSString *encodedInvoice = [jsonInvoice SC_URLEncode];
     

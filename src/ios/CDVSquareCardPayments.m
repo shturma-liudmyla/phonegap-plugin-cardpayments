@@ -20,7 +20,6 @@
 #import "CDVSquareCardPayments.h"
 #import "NSURL+SCAdditions.h"
 #import "NSDictionary+SCAdditions.h"
-#import "JSONKit.h"
 
 #import <Cordova/CDVAvailability.h>
 
@@ -136,7 +135,13 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     [options setValue:tender_types forKey:@"supported_tender_types"];
     [parameters setObject:options forKey:@"options"];
     
-    NSString *jsonParameters = [parameters JSONString];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:kNilOptions
+                                                         error:nil];
+    
+    NSString *jsonParameters = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+
     
     NSString *squareUrlString = [NSString stringWithFormat:@"%@?data=%@", CDVSquarePaymentUrl, [jsonParameters SC_URLEncodeUsingEncoding:NSUTF8StringEncoding]];
     
@@ -163,7 +168,11 @@ NSString *const CDVSquarePaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
     NSDictionary *dict = [NSMutableDictionary dictionary];
     
     if (dataString != nil) {
-        NSDictionary *data = [dataString objectFromJSONString];
+        NSData *parametersData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:parametersData
+                                                             options:kNilOptions
+                                                               error:nil];
         
         NSString *status = [data SC_stringForKey:@"status"];
         
