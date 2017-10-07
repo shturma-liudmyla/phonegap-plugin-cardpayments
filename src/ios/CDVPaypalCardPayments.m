@@ -93,7 +93,10 @@ NSString *const CDVPaypalPaymentErrorDomain = @"com.intertad.phonegap.plugins.ca
 - (void)doPaypalPaymentWithInvoice: (NSDictionary *) invoice
                 error: (NSError *__autoreleasing *) error {
 
-    NSString *jsonInvoice = [invoice JSONString];
+    //NSString *jsonInvoice = [invoice JSONString];
+    NSError *err;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:invoice options:NSJSONWritingPrettyPrinted error:&err];
+    NSString *jsonInvoice = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     NSString *encodedInvoice = [jsonInvoice SC_URLEncode];
     
