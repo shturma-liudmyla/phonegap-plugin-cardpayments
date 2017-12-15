@@ -44,7 +44,8 @@ CardPayments.createPayment = function(input, errorCallback) {
 
 		if (type === 'PAYPAL') {
 			exec(null, errorCallback, "PaypalCardPayments", "createPayment", [{
-	        	"invoice": data
+	        	"invoice": data,
+			"requestEnvelope": { "errorLanguage": "en_US" }
 	    	}]);
 		} else if (type === 'SQUARE') {
 			exec(null, errorCallback, "SquareCardPayments", "createPayment", [data]);
