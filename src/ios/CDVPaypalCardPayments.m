@@ -20,7 +20,6 @@
 #import "CDVPaypalCardPayments.h"
 #import "NSDictionary+SCAdditions.h"
 #import "NSURL+SCAdditions.h"
-#import "JSONKit.h"
 
 #import <Cordova/CDVAvailability.h>
 
