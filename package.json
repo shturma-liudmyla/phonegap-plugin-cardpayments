@@ -1,0 +1,19 @@
+{
+  "name": "phonegap-plugin-cardpayments",
+  "version": "1.0.0",
+  "description": "Card Payments ======",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pr-intertad/phonegap-plugin-cardpayments.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pr-intertad/phonegap-plugin-cardpayments/issues"
+  },
+  "homepage": "https://github.com/pr-intertad/phonegap-plugin-cardpayments#readme"
+}
